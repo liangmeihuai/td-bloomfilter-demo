@@ -76,13 +76,15 @@ public class BloomMatch {
                 if (file.isDirectory()){
                     return true;
                 }else {
-                    String name = file.getName();
-                    if (name.contains("252")){
-                        return true;
-                    }else {
-                        return false;
-                    }
-                }
+//                    String name = file.getName();
+//                    if (name.contains("252")){
+//                        return true;
+//                    }else {
+//                        return false;
+//                    }
+                    return true;
+              }
+
             }
         }); // 该文件目录下文件全部放入数组
         if (files != null) {
