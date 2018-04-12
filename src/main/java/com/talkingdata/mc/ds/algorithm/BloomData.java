@@ -5,6 +5,7 @@ import com.google.common.hash.Funnels;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ public class BloomData {
   private static Logger logger = LogManager.getLogManager().getLogger(BloomData.class.getName());
 
   private long count;// bloom文件存的count的数量
+  private AtomicLong matchCount = new AtomicLong(0);
   private final static double DEFAULT_EMPLIFY_RATE = 0.01;
   private final static String DEFAULT_EMPLIFY_RATE_KEY = "DEFAULT_EMPLIFY_RATE";
   private BloomFilter<CharSequence> filter;
@@ -29,6 +31,14 @@ public class BloomData {
 
   public long getCount() {
     return count;
+  }
+
+  public AtomicLong getMatchCount() {
+    return matchCount;
+  }
+
+  public void setMatchCount(AtomicLong matchCount) {
+    this.matchCount = matchCount;
   }
 
   public void setCount(long count) {
@@ -108,5 +118,6 @@ public class BloomData {
         .create(Funnels.stringFunnel(Charset.forName("UTF-8")), expectedInsertions, emplifyRate);
     return new BloomData(bmfilter);
   }
+
 
 }
